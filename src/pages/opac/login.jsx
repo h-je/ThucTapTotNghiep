@@ -56,7 +56,7 @@ const LoginPage = () => {
             </a>
             <div className="mt-4 flex items-center justify-between">
               <span className="border-b w-1/5 lg:w-1/4"></span>
-              <a href="#" className="text-xs text-center text-gray-500 uppercase">or login with email</a>
+              <a href="/" className="text-xs text-center text-gray-500 uppercase">or login with email</a>
               <span className="border-b w-1/5 lg:w-1/4"></span>
             </div>
             <form onSubmit={handleLogin} >
@@ -71,11 +71,10 @@ const LoginPage = () => {
                 <input placeholder='password' name='password' value={password} onChange={e => { setPassword(e.target.value) }} className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="password" />
               </div>
               <div className='text-red-500 text-sm text-center pt-4'>{errMessage}</div>
-              <Link to="/forgotpassword">forgot password</Link>
+              <Link to="/forgotpassword" className='text-sm text-gray-500 '>forgot password?</Link>
               <div className="mt-3">
                 <button type='submit' className="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600">Login</button>
               </div>
-
             </form>
             <div className="mt-4 flex items-center justify-between">
               <span className="border-b w-1/5 md:w-1/4"></span>

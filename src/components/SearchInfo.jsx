@@ -13,5 +13,4 @@ const SearchInfo = () => {
         </div>
     )
 }
-
 export default SearchInfo

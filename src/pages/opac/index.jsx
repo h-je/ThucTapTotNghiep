@@ -41,18 +41,18 @@ const Opac = () => {
     useEffect(() => {
         const fetchBook = async () => {
             const response = await axios.get("https://6241af7e9b450ae274437a35.mockapi.io/books")
-            
+
             setBooks(response.data)
 
         }
         fetchBook()
 
     }, [])
-
-
     return (
         <div >
+            <div className="bg-[url('assets/background.jpg')] bg-cover  text-white "  >
             <Header />
+            </div>
             <div className='container grid grid-cols-3 gap-x-10'>
                 <div className='col-span-1 mt-6'>
                     <div className='border-2 mb-10'>
@@ -132,8 +132,8 @@ const Opac = () => {
                             </Tab>
                         </TabList>
                         <TabPanel>
-                            
-                           <SearchKey/>
+
+                            <SearchKey />
                         </TabPanel>
                         <TabPanel>
                             Content 2

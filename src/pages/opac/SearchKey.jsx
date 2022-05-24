@@ -56,7 +56,7 @@ const SearchKey = () => {
                     />
                     <button type='submit' className='px-3 flex items-center gap-x-3 bg-blue-500 py-1'>
                         <Search size={19} />
-                        <div >
+                        <div className="rounded" >
                             Tìm kiếm
                         </div>
                     </button>

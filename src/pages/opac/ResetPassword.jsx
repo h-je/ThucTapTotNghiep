@@ -1,32 +1,27 @@
-import React,{useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
 import { resetpassword } from '../../services/auth.service'
 
-
 const ResetPassword = () => {
     // const [errMessage, setErrMessage] = useState('')
     // const [username, setUsername] = useState('')
-    const [newPassword , setNewPassword] = useState('')
-    const [newPasswordConfirm , setNewPasswordConfirm] = useState('')
+    const [newPassword, setNewPassword] = useState('')
+    const [newPasswordConfirm, setNewPasswordConfirm] = useState('')
     const { search } = useLocation('')
-    const [code , setCode] = useState('')
+    const [code, setCode] = useState('')
     const params = useMemo(() => new URLSearchParams(search), [search])
-    
-    const handleReset = (e)=>{
+
+    const handleReset = (e) => {
         e.preventDefault()
         setCode(params.get('code'))
-        resetpassword(code, newPassword).then(()=>{
+        resetpassword(code, newPassword).then(() => {
             alert('thanhcong')
         })
-        .catch(()=>{
-            alert('thatbai')
-        })
-        
+            .catch(() => {
+                alert('thatbai')
+            })
     }
-    
-
-
     return (
         <div>
             <div className="py-5 bg-gradient-to-r from-red-300 to-gray-300">
@@ -49,7 +44,6 @@ const ResetPassword = () => {
                             </div>
                         </form>
                         <div className="mt-4 flex items-center justify-between">
-
                         </div>
                     </div>
                 </div>

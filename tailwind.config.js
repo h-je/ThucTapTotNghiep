@@ -6,6 +6,7 @@ module.exports = {
     container:{
       center: true,
       padding: "10rem",
+      
     },
     extend: {},
   },

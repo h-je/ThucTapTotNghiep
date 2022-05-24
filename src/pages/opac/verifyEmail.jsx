@@ -9,7 +9,7 @@ const VerifyEmail = () => {
     const { search } = useLocation('')
     const params = useMemo(() => new URLSearchParams(search), [search])
     useEffect(() => {
-        verifyEmail(params.get('code')).then(()=>{
+        verifyEmail(params.get('code')).then(() => {
             history.push('/login')
         });
     }, [params, history])

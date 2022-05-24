@@ -6,7 +6,6 @@ const Card = ({ book }) => {
     const [tab, setTab] = useState("overview")
     const [isDetail, setDetail] = useState(false)
     const [like, setLike] = useState(false)
-    
     const renderTab = () => {
         if (tab === "overview") {
             return <div>

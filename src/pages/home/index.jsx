@@ -2,20 +2,20 @@ import React, { useState } from 'react'
 import { PlusCircle, Search, Zap } from 'react-feather'
 import { Link } from 'react-router-dom'
 import { changeTab } from '../../redux/slice/ui'
-import { isLoggedInSelector, logOut } from '../../redux/slice/auth';
+// import { isLoggedInSelector, logOut } from '../../redux/slice/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { search } from '../../services/auth.service';
+import Header from "../../components/layout/Header"
 
 const Home = () => {
-
   const [value, setValue] = useState('')
   const [select, setSelect] = useState('title')
   const dispatch = useDispatch()
-  const isLoggedIn = useSelector(isLoggedInSelector)
-  const LogOut = () => {
-    localStorage.removeItem("user");
-    dispatch(logOut())
-  }
+  // const isLoggedIn = useSelector(isLoggedInSelector)
+  // const LogOut = () => {
+  //   localStorage.removeItem("user");
+  //   dispatch(logOut())
+  // }
   const hanldeSelect = (e) => {
     setSelect(e.target.value)
     console.log(e.target.value);
@@ -29,12 +29,11 @@ const Home = () => {
         console.log({ data });
       })
   }
-
-
   return (
-    <div className="bg-[url('assets/background.jpg')]  bg-cover  bg-center pb-40 ">
+    <div className="bg-[url('assets/background.jpg')]  bg-cover  bg-center min-h-screen ">
       <div className='container text-white'>
-        <div className='flex items-center pt-5'>
+        <Header />
+        {/* <div className='flex items-center pt-5'>
           <div className='flex items-center gap-x-5 '>
             <div>
               <img width={85} height={85} src="http://opac.nlv.gov.vn/pages/opac/img/logo.png" alt="" />
@@ -46,18 +45,14 @@ const Home = () => {
               ? (<div>
                 <div onClick={LogOut} className=' cursor-pointer  rounded-lg px-3 py-2 uppercase ml-auto font-semibold text-sm'>Log out</div>
                 <div>
-                  
+
                 </div>
               </div>)
               : <Link to='/login' className='uppercase ml-auto font-semibold text-sm'>
                 <div className='cursor-pointer rounded-lg  px-3 py-2'>Login</div>
               </Link>
           }
-
-          {/* <Link to='/userpage' className='uppercase ml-auto font-semibold text-sm'>
-            Thư viện quốc gia Việt Nam
-          </Link> */}
-        </div>
+        </div> */}
         <div className='flex gap-x-12 mt-12 '>
           <Link className='flex flex-col gap-y-3 cursor-pointer ' to="/opac" onClick={() => dispatch(changeTab(0))}>
             <Zap className='mx-auto ' size={30} strokeWidth='3' />
@@ -71,10 +66,8 @@ const Home = () => {
             <PlusCircle className='mx-auto ' size={30} strokeWidth='3' />
             <div className='font-bold uppercase  '>Nang cao</div>
           </Link>
-
-
         </div>
-        <div className='flex py-8 opacity-75 text-black gap-x-1 bg-white px-8 my-20'>
+        <div className='flex rounded-xl py-8 opacity-75 text-black gap-x-1 bg-white px-8 my-20'>
           <select onChange={hanldeSelect} name="" id="" className='border-[1px] border-black rounded-md'>
             <option value='title'>Nhan đề</option>
             <option value='author'>Tác giả</option>
@@ -84,9 +77,9 @@ const Home = () => {
             <option value='year'>Năm xuất bản</option>
           </select>
           <input onChange={(e) => setValue(e.target.value)} type="text" className='flex-1 border-[1px] border-black rounded-md' />
-          <button onClick={seacrhQuery} type='submit' className='px-3 flex items-center gap-x-3 bg-blue-500 py-1'>
+          <button onClick={seacrhQuery} type='submit' className='px-3 rounded-lg flex items-center gap-x-3 bg-blue-500 py-1'>
             <Search size={19} />
-            <div >
+            <div className='' >
               Tìm kiếm
             </div>
           </button>

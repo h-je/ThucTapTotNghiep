@@ -3,7 +3,7 @@ import Header from '../../components/layout/Header'
 
 const UserBookOrder = () => {
     return (
-      
+
         <div className='min-h-screen'>
             <Header />
             <div>
@@ -55,10 +55,10 @@ const UserBookOrder = () => {
                                     Sliver
                                 </td>
                                 <td class="px-6 py-4">
-                                    <input type="date"  />
+                                    <input type="date" />
                                 </td>
                                 <td class="px-6 py-4">
-                                    <input type="date"  />
+                                    <input type="date" />
                                 </td>
                                 <td class="px-6 py-4 text-right">
                                     <a href="/" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
