@@ -6,16 +6,13 @@ import { changeTab } from '../../redux/slice/ui'
 import { useDispatch, useSelector } from 'react-redux';
 import { search } from '../../services/auth.service';
 import Header from "../../components/layout/Header"
+import Card from "../../components/Card"
 
 const Home = () => {
   const [value, setValue] = useState('')
+  const [books, setBooks] = useState([])
   const [select, setSelect] = useState('title')
   const dispatch = useDispatch()
-  // const isLoggedIn = useSelector(isLoggedInSelector)
-  // const LogOut = () => {
-  //   localStorage.removeItem("user");
-  //   dispatch(logOut())
-  // }
   const hanldeSelect = (e) => {
     setSelect(e.target.value)
     console.log(e.target.value);
@@ -24,11 +21,17 @@ const Home = () => {
     search({ [select]: value })
       .then((data) => {
         console.log(data);
+        setBooks(data.data.content)
       })
       .catch((data) => {
         console.log({ data });
       })
   }
+  // const isLoggedIn = useSelector(isLoggedInSelector)
+  // const LogOut = () => {
+  //   localStorage.removeItem("user");
+  //   dispatch(logOut())
+  // }
   return (
     <div className="bg-[url('assets/background.jpg')]  bg-cover  bg-center min-h-screen ">
       <div className='container text-white'>
@@ -54,18 +57,18 @@ const Home = () => {
           }
         </div> */}
         <div className='flex gap-x-12 mt-12 '>
-          <Link className='flex flex-col gap-y-3 cursor-pointer ' to="/opac" onClick={() => dispatch(changeTab(0))}>
+          <Link className='flex flex-col gap-y-3 cursor-pointer ' to="/" onClick={() => dispatch(changeTab(0))}>
             <Zap className='mx-auto ' size={30} strokeWidth='3' />
             <div className='font-bold uppercase  '>Tim Nhanh</div>
           </Link>
-          <Link className='flex flex-col border-x-2 px-5 gap-y-3 cursor-pointer' to="/opac" onClick={() => dispatch(changeTab(1))} >
+          {/* <Link className='flex flex-col border-x-2 px-5 gap-y-3 cursor-pointer' to="/opac" onClick={() => dispatch(changeTab(1))} >
             <Search className='mx-auto ' size={30} strokeWidth='3' />
             <div className='font-bold uppercase  '>Co ban</div>
           </Link>
           <Link className='flex flex-col gap-y-3 cursor-pointer ' to="/opac" onClick={() => dispatch(changeTab(2))}  >
             <PlusCircle className='mx-auto ' size={30} strokeWidth='3' />
             <div className='font-bold uppercase  '>Nang cao</div>
-          </Link>
+          </Link> */}
         </div>
         <div className='flex rounded-xl py-8 opacity-75 text-black gap-x-1 bg-white px-8 my-20'>
           <select onChange={hanldeSelect} name="" id="" className='border-[1px] border-black rounded-md'>
@@ -83,8 +86,11 @@ const Home = () => {
               Tìm kiếm
             </div>
           </button>
+          <div>
+          </div>
         </div>
       </div>
+          {books && books.map(book => <Card key={book.id} book={book} />)}
     </div>
   )
 }

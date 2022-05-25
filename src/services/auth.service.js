@@ -1,6 +1,6 @@
 import { data } from "autoprefixer";
 import axios from "axios";
-const API_URL = "https://92b2-116-110-40-30.ap.ngrok.io/api/auth/";
+const API_URL = "https://12c5-116-110-40-30.ap.ngrok.io/api/auth/";
 export const register = async (data) => {
   return await axios.post(API_URL + "signup", data);
 };
@@ -18,7 +18,7 @@ export const verifyEmail = (code) => {
 };
 
 export const search = (data) => {
-  return axios.get("https://92b2-116-110-40-30.ap.ngrok.io/api/books/search", {
+  return axios.get("https://12c5-116-110-40-30.ap.ngrok.io/api/books/search", {
     params: { ...data },
   });
 };

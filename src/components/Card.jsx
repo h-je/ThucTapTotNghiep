@@ -1,11 +1,23 @@
 import React, { useState } from 'react'
-import { ArrowRight, Eye, Heart } from 'react-feather'
+import { ArrowRight, Eye, Heart , Activity } from 'react-feather'
 import { useDispatch, useSelector } from 'react-redux'
+import { createReservation } from '../services/reservation.server'
+import { userSelector } from '../../src/redux/slice/auth'
 
 const Card = ({ book }) => {
     const [tab, setTab] = useState("overview")
+    const user = useSelector(userSelector)
     const [isDetail, setDetail] = useState(false)
     const [like, setLike] = useState(false)
+    const reservation = () => {
+        console.log(user);
+        createReservation({ userId: user.id, isbn: book.isbn }).then(() => {
+            alert('thành công')
+        }).catch((error) => {
+            alert(error.response.data)
+
+        })
+    }
     const renderTab = () => {
         if (tab === "overview") {
             return <div>
@@ -13,72 +25,95 @@ const Card = ({ book }) => {
                     <div className='flex'>
                         <div className='flex  text-sm gap-x-7'>
                             <div>
-                                <img width={100} height={140} src={book.image} alt="" />
+                                <img width={100} height={140} src={`https://886a-116-110-40-30.ap.ngrok.io/api/books/image/${book.isbn}`} alt="" />
                             </div>
-                            <div className='flex flex-col gap-y-4'>
-                                <div>
-                                    Loại CSDL:
+                            <div className='flex flex-col gap-y-5 '>
+                                <div className='flex gap-x-5'>
+                                    <div>
+                                        Tiêu đề
+                                    </div>
+                                    <div>
+                                        {book.title}
+                                    </div>
                                 </div>
-                                <div>
-                                    Tác giả:
+                                <div className='flex gap-x-5'>
+                                    <div>
+                                        Tác giả
+                                    </div>
+                                    <div>
+                                        {book.authors}
+                                    </div>
                                 </div>
-                                <div>
-                                    Thông tin xb:
+                                <div className='flex gap-x-5'>
+                                    <div>
+                                        Dạng tài liệu
+                                    </div>
+                                    <div>
+                                        {book.category}
+                                    </div>
                                 </div>
-                                <div>
-                                    Phân loại tài liệu:
+                                <div className='flex gap-x-5'>
+                                    <div>
+                                        Mô tả
+                                    </div>
+                                    <div>
+                                        {book.content}
+                                    </div>
                                 </div>
-                                <div>
-                                    Mô tả vật lý:
+                                <div className='flex gap-x-5'>
+                                    <div>
+                                        Isbn
+                                    </div>
+                                    <div>
+                                        {book.isbn}
+                                    </div>
                                 </div>
-                                <div>
-                                    Tài liệu chủ/nguồn:
+                                <div className='flex gap-x-5'>
+                                    <div>
+                                        Giá
+                                    </div>
+                                    <div>
+                                        {book.price}
+                                    </div>
                                 </div>
-                                <div>
-                                    Từ Khóa:
+                                <div className='flex gap-x-5'>
+                                    <div>
+                                        Nhà xuất bản
+                                    </div>
+                                    <div>
+                                        {book.publisher}
+                                    </div>
                                 </div>
-                                <div>
-                                    Tác giả bổ sung:
+                                <div className='flex gap-x-5'>
+                                    <div>
+                                        Có sẵn
+                                    </div>
+                                    <div>
+                                        {book.ready}
+                                    </div>
                                 </div>
-                            </div>
-                            <div className='flex flex-col ml-9 gap-y-4'>
-                                <div className='py-[1px] px-[3px] rounded-md text-white bg-blue-300 w-fit font-semibold'>
-                                    {book.type}
-                                </div>
-                                <div>
-                                    Nguyễn Đình Trí
+                                <div className='flex gap-x-5'>
+                                    <div>
+                                        Tags
+                                    </div>
+                                    <div>
+                                        {book.Tags}
+                                    </div>
                                 </div>
 
-                                <div>
-                                    {book.publisher}
-                                </div>
-                                <div>
-                                    512.140711/ T406H
-                                </div>
-                                <div>
-                                    {book.description}
-                                </div>
-                                <div>
-                                    Toán học cao cấp; 2017, Giáo dục, H.
-                                </div>
-                                <div>
-                                    Toán cao cấp; Đại số; Hình học giải tích; Giáo trình
-                                </div>
-                                <div>
-                                    Tạ Văn Đĩnh ;Nguyễn Hồ Quỳnh
-                                </div>
                             </div>
+
                         </div>
                         <div className='ml-auto'>
                             <img src="http://opac.nlv.gov.vn/pages/opac/TempDir/qrcode/ILIB/203/954460.jpg" width={120} height={120} alt="" />
                         </div>
                     </div> :
                     <div className='flex flex-col text-sm gap-y-3'>
-                        <div>Tác giả:  Nguyễn Đình Trí</div>
+                        <div>Tác giả: {book.authors}</div>
                         <div>Thông tin xuất bản:  {book.publisher}</div>
-                        <div>Phân loại tài liệu: 512.140711 / T406H</div>
+                        <div>Phân loại tài liệu: </div>
                         <div>
-                            Tài liệu chủ/Nguồn: Toán học cao cấp; 2017, Giáo dục, H.
+                            Tài liệu chủ/Nguồn:
                         </div>
                         <div >Loại CSDL:  {book.type}</div>
                     </div>}
@@ -88,6 +123,9 @@ const Card = ({ book }) => {
                         <ArrowRight size={15} /></button>
                     {
                         isDetail && (<div className='flex ml-auto gap-x-7'>
+                            <div onClick={reservation} className='px-2 py-1 cursor-pointer  '>
+                            <Activity />Đăng ký mượn
+                            </div>
                             <Heart className='cursor-pointer' fill={like ? "red" : "white"} color='red' onClick={() => setLike(!like)} />
                             <div className='flex gap-x-2'>
                                 <Eye />
