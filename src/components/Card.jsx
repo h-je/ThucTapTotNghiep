@@ -10,12 +10,13 @@ const Card = ({ book }) => {
     const [isDetail, setDetail] = useState(false)
     const [like, setLike] = useState(false)
     const reservation = () => {
-        console.log(user);
+        console.log(user.id);
         createReservation({ userId: user.id, isbn: book.isbn }).then(() => {
             alert('thành công')
+            
         }).catch((error) => {
             alert(error.response.data)
-
+            console.log({error});
         })
     }
     const renderTab = () => {
@@ -25,7 +26,7 @@ const Card = ({ book }) => {
                     <div className='flex'>
                         <div className='flex  text-sm gap-x-7'>
                             <div>
-                                <img width={100} height={140} src={`https://886a-116-110-40-30.ap.ngrok.io/api/books/image/${book.isbn}`} alt="" />
+                                <img width={100} height={140} src={`https://69a9-116-110-40-30.ap.ngrok.io/api/books/image/${book.isbn}`} alt="" />
                             </div>
                             <div className='flex flex-col gap-y-5 '>
                                 <div className='flex gap-x-5'>
@@ -178,7 +179,6 @@ const Card = ({ book }) => {
                     </tbody>
                 </table>
             )
-
         }
         if (tab === "link") {
             return (

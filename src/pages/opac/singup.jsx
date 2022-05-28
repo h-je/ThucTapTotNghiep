@@ -20,7 +20,7 @@ const Singup = () => {
         }
         setSubmit(false)
     }, [password, confirmPassword])
-    const handleLogin = (e) => {
+    const handleRegister = (e) => {
         e.preventDefault()
         setErrMessage('')
         if (!submit) {
@@ -33,7 +33,6 @@ const Singup = () => {
             .catch((error) => {
                 console.log(error);
                 setErrMessage(error.response.data.message)
-
             })
     }
     return (
@@ -48,7 +47,7 @@ const Singup = () => {
                             <p className="text-sm text-gray-600 text-center">Quickly and easy!</p>
                             <span className="border-b w-1/5 lg:w-1/4"></span>
                         </div>
-                        <form onSubmit={handleLogin} >
+                        <form onSubmit={handleRegister} >
                             <div className='flex gap-x-2  grid-cols-2 '>
                                 <div className="mt-4 ">
                                     <label type="text" className="block text-gray-700 text-sm font-bold mb-2">First name</label>

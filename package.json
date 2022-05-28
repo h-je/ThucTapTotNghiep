@@ -49,5 +49,6 @@
     "autoprefixer": "^10.4.7",
     "postcss": "^8.4.13",
     "tailwindcss": "^3.0.24"
-  }
+  },
+  "proxy": "https://69a9-116-110-40-30.ap.ngrok.io"
 }

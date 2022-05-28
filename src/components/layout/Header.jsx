@@ -1,12 +1,17 @@
-import React ,{useState} from 'react'
-import { Link } from 'react-router-dom'
-import { isLoggedInSelector, logOut } from '../../redux/slice/auth';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import useOnclickOutsite from "../../hooks/useOnclickOutSide";
+import { isLoggedInSelector, logOut } from '../../redux/slice/auth';
+import UserModal from '../Modal/UserModal';
 
 const Header = () => {
   const isLoggedIn = useSelector(isLoggedInSelector)
   const dispatch = useDispatch()
-  const [username, setUsername] = useState("")
+
+
+  const { nodeRef, show, setShow } = useOnclickOutsite()
+  // const [username, setUsername] = useState("")
   const LogOut = () => {
     localStorage.removeItem("user");
     dispatch(logOut())
@@ -22,9 +27,9 @@ const Header = () => {
         </div>
         <div className='ml-auto'>{
           isLoggedIn
-            ? (<div className='flex gap-x-2'>
-              <Link to="/userbookorder" width={5} height={5} className=' item-center justify-center bg-white cursor-pointer opacity-90 rounded-full ' key="index">{username} ucon</Link>
-              <div onClick={LogOut} className=' cursor-pointer opacity-70 rounded-lg px-3 py-2 uppercase ml-auto font-semibold text-sm'>Log out</div>
+            ? (<div className='flex gap-x-2 relative'>
+              <div className=' item-center justify-center bg-white cursor-pointer opacity-90 rounded-full h-10 w-10 mr-10 pointer' ref={nodeRef} onClick={() => setShow(!show)}></div>
+              <UserModal show={show} />
             </div>)
             : <Link to='/login' className='uppercase ml-auto font-semibold text-sm'>
               <div className='cursor-pointer rounded-lg opacity-70 text-teal-600 bg-white px-3 py-2'>Login</div>

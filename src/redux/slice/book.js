@@ -1,11 +1,18 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-const API_URL = "https://12c5-116-110-40-30.ap.ngrok.io/api/";
+const API_URL = process.env.REACT_APP_API_URL;
 
 export const fetchReservationBook = createAsyncThunk(
   "book/fetchReservationBook",
-  async () => {
-    const response = await axios.get(API_URL + "reservation/reserving");
+  async (id) => {
+    const response = await axios.get(API_URL + "/reservation/reserving/" + id);
+    return response.data;
+  }
+);
+export const deleteReservationBook = createAsyncThunk(
+  "book/deleteReservationBook",
+  async (id) => {
+    const response = await axios.put(API_URL + "/reservation/cancel/" + id);
     return response.data;
   }
 );
@@ -21,6 +28,9 @@ const bookSlice = createSlice({
     // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(fetchReservationBook.fulfilled, (state, action) => {
       // Add user to the state array
+      state.book = action.payload;
+    });
+    builder.addCase(deleteReservationBook.fulfilled, (state, action) => {
       state.book = action.payload;
     });
   },

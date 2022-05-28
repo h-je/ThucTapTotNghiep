@@ -1,11 +1,11 @@
 import { data } from "autoprefixer";
 import axios from "axios";
-const API_URL = "https://12c5-116-110-40-30.ap.ngrok.io/api/auth/";
+const API_URL = process.env.REACT_APP_API_URL +"/auth";
 export const register = async (data) => {
-  return await axios.post(API_URL + "signup", data);
+  return await axios.post(API_URL + "/signup", data);
 };
 export const login = (username, password) => {
-  return axios.post(API_URL + "signin", {
+  return axios.post(API_URL + "/signin", {
     username,
     password,
   });
@@ -18,7 +18,7 @@ export const verifyEmail = (code) => {
 };
 
 export const search = (data) => {
-  return axios.get("https://12c5-116-110-40-30.ap.ngrok.io/api/books/search", {
+  return axios.get(process.env.REACT_APP_API_URL + "/books/search", {
     params: { ...data },
   });
 };
