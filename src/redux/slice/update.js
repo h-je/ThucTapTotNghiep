@@ -2,40 +2,18 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 const API_URL = process.env.REACT_APP_API_URL;
 
-const user = JSON.parse(localStorage.getItem("user"));
-export const getUserInfo = createAsyncThunk("user/getUserInfo", async () => {
-  const response = await axios.get(API_URL + "/users/me", {
-    headers: {
-      Authorization: "Bearer " + user.token,
-    },
-  });
-  return response.data;
-});
 export const updateUserInfo = createAsyncThunk(
   "user/updateUserInfo",
-  async (info) => {
-    const response = await axios.put(
-      API_URL + "/users",
-      {
-        id: info.id,
-        username: info.username,
-        firstName: info.firstName,
-        lastName: info.lastName,
-        password: info.password,
-        roles: info.roles,
-        email: info.email,
-        dateOfBirth: info.dateOfBirth,
+  async (token) => {
+    const response = await axios.put(API_URL + "/users", {
+      headers: {
+        Authorization: "Bearer " + token,
       },
-      {
-        headers: {
-          Authorization: "Bearer " + user.token,
-        },
-      }
-    );
+    });
     return response.data;
   }
 );
-
+const user = JSON.parse(localStorage.getItem("user"));
 const initialState = user
   ? {
       isLoggedIn: true,
@@ -49,7 +27,7 @@ const initialState = user
   : { isLoggedIn: false, user: null };
 
 const authSlice = createSlice({
-  name: "auth",
+  name: "update",
   initialState: initialState,
 
   reducers: {
@@ -82,11 +60,14 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getUserInfo.pending, (state, action) => {
+    // Add reducers for additional action types here, and handle loading state as needed
+    builder.addCase(updateUserInfo.pending, (state, action) => {
       // Add user to the state array
       console.log(action.payload);
     });
-    builder.addCase(getUserInfo.fulfilled, (state, action) => {
+    builder.addCase(updateUserInfo.fulfilled, (state, action) => {
+      // Add user to the state array
+      console.log(action.payload);
       state.userName = action.payload.username;
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
@@ -96,10 +77,10 @@ const authSlice = createSlice({
   },
 });
 
-const authReducer = authSlice.reducer;
-export const userSelector = (state) => state.authReducer.user;
-export const isLoggedInSelector = (state) => state.authReducer.isLoggedIn;
-export const authSelector = (state) => state.authReducer;
+const updateReducer = authSlice.reducer;
+export const userSelector = (state) => state.updateReducer.user;
+export const isLoggedInSelector = (state) => state.updateReducer.isLoggedIn;
+export const authSelector = (state) => state.updateReducer;
 
 export const {
   loginSuccess,
@@ -111,4 +92,4 @@ export const {
   setLastName,
   setUserName,
 } = authSlice.actions;
-export default authReducer;
+export default updateReducer;

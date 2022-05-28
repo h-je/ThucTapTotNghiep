@@ -1,8 +1,15 @@
 import React from 'react'
 import { useState } from 'react'
 
-const Reserving = ({ books, onClick }) => {
+
+const Reserving = ({ books, onDeleteById }) => {
     const [show, setShow] = useState(true)
+
+    const handleDeleteById = (id) => {
+        // console.log("id nef", id);
+        onDeleteById(id)
+    }
+    console.log(books);
     return (
 
         <div>
@@ -21,31 +28,13 @@ const Reserving = ({ books, onClick }) => {
                         {["STT", "id", "Sách", "Ngày đặt mượn", "Hết hiệu lực", "Trạng thái"].map((val, index) => <th key={index} scope="col" class="px-6 py-3">
                             {val}
                         </th>)}
-                        {/* <th scope="col" class="px-6 py-3">
-                            STT
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            id
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Sách
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Ngày đặt mượn
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Hết hiệu lực
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Trạng thái
-                        </th> */}
                         <th scope="col" class="px-6 py-3">
                             <span class="sr-only">Edit</span>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    {books && books.content.map((book, index) => (
+                    {books && books?.content?.map((book, index) => (
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             {/* <td class="w-4 p-4">
                                         <div class="flex items-center">
@@ -63,7 +52,8 @@ const Reserving = ({ books, onClick }) => {
                                 {book.book}
                             </th>
                             <td class="px-6 py-4">
-                                <input type="date" value={book.reservationDate} />
+                                <input type="date" value={book.borrowDate} />
+
                             </td>
                             <td class="px-6 py-4">
                                 <input type="date" value={book.expirationDate} />
@@ -72,13 +62,13 @@ const Reserving = ({ books, onClick }) => {
                                 {book.status}
                             </td>
                             <td class="px-6 py-4 text-right">
-                                <div onClick={() => onClick(book.id)} class="font-medium text-blue-600 cursor-pointer dark:text-blue-500 hover:underline">Delete</div>
+                                <div onClick={() => handleDeleteById(book.id)} class="font-medium text-blue-600 cursor-pointer dark:text-blue-500 hover:underline">Delete</div>
                             </td>
                         </tr>))}
                     {books?.content?.length === 0 && <td>No data yet</td>}
                 </tbody>
             </table>
-        </div>
+        </div >
     )
 }
 

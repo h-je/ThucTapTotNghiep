@@ -19,7 +19,8 @@ export const fetchBorrorwedOfUser = createAsyncThunk(
 const borrowSlice = createSlice({
   name: "borrows",
   initialState: {
-    book: null,
+    borrowed: null,
+    borrowing: null,
   },
   reducers: {
     // standard reducer logic, with auto-generated action types per reducer
@@ -28,15 +29,20 @@ const borrowSlice = createSlice({
     // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(fetchBorrorwingOfUser.fulfilled, (state, action) => {
       // Add user to the state array
-      state.borrow = action.payload;
+      console.log(action.payload);
+      state.borrowing = action.payload;
     });
+
     builder.addCase(fetchBorrorwedOfUser.fulfilled, (state, action) => {
-      state.borrow = action.payload;
+      console.log(action.payload);
+      state.borrowed = action.payload;
     });
   },
 });
 const borrowReducer = borrowSlice.reducer;
-export const borrowSelector = (state) => state.borrowReducer.book;
+export const borrowingSelector = (state) => state.borrowReducer.borrowing;
+export const borrowedSelector = (state) => state.borrowReducer.borrowed;
+
 export const isLoggedInSelector = (state) => state.borrowReducer.isLoggedIn;
 
 export default borrowReducer;

@@ -1,63 +1,58 @@
-import React, { useState } from 'react'
+
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { userSelector } from '../redux/slice/auth'
+import { authSelector, getUserInfo, updateUserInfo, userSelector } from '../redux/slice/auth'
+import { setUserName, setDOB, setFirstName, setLastName, setEmail } from '../redux/slice/auth'
+import { borrowing } from '../services/auth.service'
 
 const UserInformation = () => {
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [username, setUsername] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [dateOfBirth, setDateOfBirth] = useState('')
     const [errMessage, setErrMessage] = useState('')
     const dispatch = useDispatch()
+    const userInfo = useSelector(authSelector)
     const user = useSelector(userSelector)
-    const handleUserInfo = (e) => {
-        e.preventDefault()
-        setErrMessage('')
 
+    useEffect(() => {
+        dispatch(getUserInfo())
+    }, [dispatch, user.token])
+    const handleUpdate = (e) => {
+        e.preventDefault()
+        dispatch(updateUserInfo({ id: user.id, username: userInfo.userName, email: userInfo.email, password: "123456", roles: ["ADMIN"], firstName: userInfo.firstName, lastName: userInfo.lastName, dateOfBirth: userInfo.dateOfBirth }))
     }
+
     return (
         <div>
             <div className=''>
-                <form onSubmit={handleUserInfo} >
-                    <div className='flex gap-x-2  grid-cols-2 '>
+                <form onSubmit={handleUpdate} >
+                    <div className='grid grid-cols-2  gap-x-10 '>
                         <div className="mt-4 ">
                             <label type="text" className="block text-gray-700 text-sm font-bold mb-2">First name</label>
-                            <input name='firstName' value={firstName} type="text" onChange={e => setFirstName(e.target.value)} className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
+                            <input name=' firstName' value={userInfo.firstName} type="text" onChange={(e) => dispatch(setFirstName(e.target.value))} className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
                         </div>
                         <div className="mt-4  ">
                             <div className="flex justify-between">
                                 <label className="block text-gray-700 text-sm font-bold mb-2">Last name</label>
                             </div>
-                            <input name='lastName' value={lastName} type="text" onChange={e => { setLastName(e.target.value) }} className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
+                            <input name='lastName' value={userInfo.lastName} type="text" onChange={(e) => dispatch(setLastName(e.target.value))} className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
                         </div>
                     </div>
                     <div className="mt-4">
                         <div className="flex justify-between">
                             <label className="block text-gray-700 text-sm font-bold mb-2">User name</label>
                         </div>
-                        <input name='username' value={username} type="username" onChange={e => { setUsername(e.target.value) }} className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
+                        <input name=' username' value={userInfo.userName} type="username" onChange={(e) => dispatch(setUserName(e.target.value))} className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
                     </div>
                     <div className="mt-4">
                         <div className="flex justify-between">
                             <label className="block text-gray-700 text-sm font-bold mb-2">email</label>
                         </div>
-                        <input name='email' value={email} type="email" onChange={e => { setEmail(e.target.value) }} className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
+                        <input name='email' value={userInfo.email} type="email" onChange={(e) => dispatch(setEmail(e.target.value))} className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
                     </div>
-                    <div className='flex gap-x-2  grid-cols-2 '>
-                        <div className="mt-4">
-                            <div className="flex justify-between">
-                                <label className="block text-gray-700 text-sm font-bold mb-2">New Password</label>
-                            </div>
-                            <input name='password' value={password} type="password" onChange={e => { setPassword(e.target.value) }} className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
-                        </div>
-                    </div>
+
                     <div className="mt-4">
                         <div className="flex justify-between">
                             <label className="block text-gray-700 text-sm font-bold mb-2">Date of birth</label>
                         </div>
-                        <input name='dateOfBirth' value={dateOfBirth} type="date" onChange={e => { setDateOfBirth(e.target.value) }} className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
+                        <input name='dateOfBirth' value={userInfo.dateOfBirth} type="date" onChange={(e) => dispatch(setDOB(e.target.value))} className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
                     </div>
 
                     <div className='text-red-500 text-sm text-center pt-4'>

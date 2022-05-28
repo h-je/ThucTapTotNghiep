@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
-
+import { useSelector } from 'react-redux'
+import { borrowedSelector } from '../../redux/slice/borrow'
 const BorrowedOfUser = ({ books }) => {
+    const borrowed = useSelector(borrowedSelector)
     const [show, setShow] = useState(true)
     return (
         <div>
@@ -45,7 +47,7 @@ const BorrowedOfUser = ({ books }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {books && books?.content.map((book, index) => (
+                    {borrowed && borrowed?.content.map((book, index) => (
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             {/* <td class="w-4 p-4">
                                         <div class="flex items-center">
@@ -63,7 +65,7 @@ const BorrowedOfUser = ({ books }) => {
                                 {book.book}
                             </th>
                             <td class="px-6 py-4">
-                                <input type="date" value={book.reservationDate} />
+                                <input type="text" value={book.borrowDate} />
                             </td>
                             <td class="px-6 py-4">
                                 <input type="date" value={book.expirationDate} />

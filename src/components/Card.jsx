@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ArrowRight, Eye, Heart , Activity } from 'react-feather'
+import { ArrowRight, Eye, Heart, Activity } from 'react-feather'
 import { useDispatch, useSelector } from 'react-redux'
 import { createReservation } from '../services/reservation.server'
 import { userSelector } from '../../src/redux/slice/auth'
@@ -13,10 +13,10 @@ const Card = ({ book }) => {
         console.log(user.id);
         createReservation({ userId: user.id, isbn: book.isbn }).then(() => {
             alert('thành công')
-            
+
         }).catch((error) => {
             alert(error.response.data)
-            console.log({error});
+            console.log({ error });
         })
     }
     const renderTab = () => {
@@ -26,7 +26,7 @@ const Card = ({ book }) => {
                     <div className='flex'>
                         <div className='flex  text-sm gap-x-7'>
                             <div>
-                                <img width={100} height={140} src={`https://69a9-116-110-40-30.ap.ngrok.io/api/books/image/${book.isbn}`} alt="" />
+                                <img width={100} height={140} src={`${process.env.REACT_APP_API_URL}/books/image/${book.isbn}`} alt="" />
                             </div>
                             <div className='flex flex-col gap-y-5 '>
                                 <div className='flex gap-x-5'>
@@ -125,13 +125,10 @@ const Card = ({ book }) => {
                     {
                         isDetail && (<div className='flex ml-auto gap-x-7'>
                             <div onClick={reservation} className='px-2 py-1 cursor-pointer  '>
-                            <Activity />Đăng ký mượn
+                                <Activity />Đăng ký mượn
                             </div>
                             <Heart className='cursor-pointer' fill={like ? "red" : "white"} color='red' onClick={() => setLike(!like)} />
-                            <div className='flex gap-x-2'>
-                                <Eye />
-                                <span>20</span>
-                            </div>
+
                         </div>)
                     }
                 </div>

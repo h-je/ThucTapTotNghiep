@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { PlusCircle, Search, Zap } from 'react-feather'
 import { Link } from 'react-router-dom'
 import { changeTab } from '../../redux/slice/ui'
@@ -7,12 +7,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { search } from '../../services/auth.service';
 import Header from "../../components/layout/Header"
 import Card from "../../components/Card"
+import { getAll } from '../../services/reservation.server';
 
 const Home = () => {
   const [value, setValue] = useState('')
   const [books, setBooks] = useState([])
   const [select, setSelect] = useState('title')
   const dispatch = useDispatch()
+  useEffect(() => {
+    getAll()
+      .then((data) => {
+        setBooks(data.data.content)
+        console.log(data.data.content);
+      })
+  }, [])
   const hanldeSelect = (e) => {
     setSelect(e.target.value)
     console.log(e.target.value);
@@ -90,7 +98,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-          {books && books.map(book => <Card key={book.id} book={book} />)}
+      {books && books.map(book => <Card key={book.id} book={book} />)}
     </div>
   )
 }
