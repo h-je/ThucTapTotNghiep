@@ -10,7 +10,7 @@ const UserModal = ({ show }) => {
         dispatch(logOut())
     }
     return (
-        <div className={`flex flex-col gap-y-5 top-12 border-2 rounded-xl mr-4 min-w-max  right-0 text-gray-600 px-3 py-3 z-40  bg-white ${!show ? 'hidden' : "block"} absolute`} >
+        <div className={`flex flex-col gap-y-5 top-12 border-2 rounded-xl mr-4 min-w-max  right-0 text-gray-600 px-3 py-3 z-40 shadow-xl shadow-gray-600 bg-white ${!show ? 'hidden' : "block"} absolute`} >
             <Link to="/userinformation" className='cursor-pointer hover:bg-gray-400 px-1 py-1 rounded-lg'>
                 Thông tin cá nhân
             </Link>

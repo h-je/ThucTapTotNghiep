@@ -29,7 +29,7 @@ const UserBookOrder = () => {
 
     return (
         <div className=" min-h-screen ">
-            <div className="bg-[url('assets/background.jpg')] flex ">
+            <div className="bg-[url('assets/background.jpg')] flex shadow-lg shadow-zinc-700">
                 <Header />
             </div>
             <div>

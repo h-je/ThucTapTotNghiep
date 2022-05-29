@@ -65,10 +65,10 @@ const Home = () => {
           }
         </div> */}
         <div className='flex gap-x-12 mt-12 '>
-          <Link className='flex flex-col gap-y-3 cursor-pointer ' to="/" onClick={() => dispatch(changeTab(0))}>
+          {/* <Link className='flex flex-col gap-y-3 cursor-pointer ' to="/" onClick={() => dispatch(changeTab(0))}>
             <Zap className='mx-auto ' size={30} strokeWidth='3' />
             <div className='font-bold uppercase  '>Tim Nhanh</div>
-          </Link>
+          </Link> */}
           {/* <Link className='flex flex-col border-x-2 px-5 gap-y-3 cursor-pointer' to="/opac" onClick={() => dispatch(changeTab(1))} >
             <Search className='mx-auto ' size={30} strokeWidth='3' />
             <div className='font-bold uppercase  '>Co ban</div>
@@ -88,9 +88,9 @@ const Home = () => {
             <option value='year'>Năm xuất bản</option>
           </select>
           <input onChange={(e) => setValue(e.target.value)} type="text" className='flex-1 border-[1px] border-black rounded-md' />
-          <button onClick={seacrhQuery} type='submit' className='px-3 rounded-lg flex items-center gap-x-3 bg-blue-500 py-1'>
+          <button onClick={seacrhQuery} type='submit' className='px-3 rounded-lg flex items-center gap-x-3 bg-blue-500 py-1 hover:bg-lime-300'>
             <Search size={19} />
-            <div className='' >
+            <div className=' ' >
               Tìm kiếm
             </div>
           </button>
