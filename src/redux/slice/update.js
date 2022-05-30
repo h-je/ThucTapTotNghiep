@@ -23,6 +23,7 @@ const initialState = user
       email: "",
       lastName: "",
       dateOfBirth: "",
+      password: "",
     }
   : { isLoggedIn: false, user: null };
 
@@ -58,6 +59,9 @@ const authSlice = createSlice({
     setDOB(state, action) {
       state.dateOfBirth = action.payload;
     },
+    setPassword(state, action) {
+      state.password = action.payload;
+    },
   },
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
@@ -73,6 +77,7 @@ const authSlice = createSlice({
       state.lastName = action.payload.lastName;
       state.email = action.payload.email;
       state.dateOfBirth = action.payload.dateOfBirth;
+      state.password = action.payload.password;
     });
   },
 });
@@ -91,5 +96,6 @@ export const {
   setFirstName,
   setLastName,
   setUserName,
+  setPassword,
 } = authSlice.actions;
 export default updateReducer;

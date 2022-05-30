@@ -11,6 +11,18 @@ export const getUserInfo = createAsyncThunk("user/getUserInfo", async () => {
   });
   return response.data;
 });
+export const isFavoriteBook = createAsyncThunk(
+  "user/isFavoriteBook",
+  async () => {
+    const response = await axios.get(API_URL + "/users/likebook", {
+      headers: {
+        Authorization: "Bearer " + user.token,
+      },
+    });
+    return response.data;
+  }
+);
+
 export const updateUserInfo = createAsyncThunk(
   "user/updateUserInfo",
   async (info) => {
@@ -45,6 +57,7 @@ const initialState = user
       email: "",
       lastName: "",
       dateOfBirth: "",
+      password: "",
     }
   : { isLoggedIn: false, user: null };
 
@@ -80,6 +93,9 @@ const authSlice = createSlice({
     setDOB(state, action) {
       state.dateOfBirth = action.payload;
     },
+    setPassword(state, action) {
+      state.password = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getUserInfo.pending, (state, action) => {
@@ -92,6 +108,10 @@ const authSlice = createSlice({
       state.lastName = action.payload.lastName;
       state.email = action.payload.email;
       state.dateOfBirth = action.payload.dateOfBirth;
+      state.password = action.payload.password;
+    });
+    builder.addCase(isFavoriteBook.fulfilled, (state, action) => {
+      state.borrowed = action.payload;
     });
   },
 });
@@ -110,5 +130,6 @@ export const {
   setFirstName,
   setLastName,
   setUserName,
+  setPassword,
 } = authSlice.actions;
 export default authReducer;

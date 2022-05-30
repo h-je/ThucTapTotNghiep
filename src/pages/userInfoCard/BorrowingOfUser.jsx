@@ -63,7 +63,7 @@ const BorrowingOfUser = ({ books }) => {
                                 {book.id}
                             </td>
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                                {book.book}
+                                {book.title}
                             </th>
                             <td class="px-6 py-4">
                                 <div  >{book.borrowDate}</div>

@@ -41,10 +41,11 @@ const Home = () => {
   //   dispatch(logOut())
   // }
   return (
-    <div className="bg-[url('assets/background.jpg')]  bg-cover  bg-center min-h-screen ">
-      <div className='container text-white'>
-        <Header />
-        {/* <div className='flex items-center pt-5'>
+    <div>
+      <div className="bg-[url('assets/background.jpg')]  bg-cover  bg-center h-5/6">
+        <div className='container text-white'>
+          <Header />
+          {/* <div className='flex items-center pt-5'>
           <div className='flex items-center gap-x-5 '>
             <div>
               <img width={85} height={85} src="http://opac.nlv.gov.vn/pages/opac/img/logo.png" alt="" />
@@ -64,12 +65,12 @@ const Home = () => {
               </Link>
           }
         </div> */}
-        <div className='flex gap-x-12 mt-12 '>
-          {/* <Link className='flex flex-col gap-y-3 cursor-pointer ' to="/" onClick={() => dispatch(changeTab(0))}>
+          <div className='flex gap-x-12 mt-12 '>
+            {/* <Link className='flex flex-col gap-y-3 cursor-pointer ' to="/" onClick={() => dispatch(changeTab(0))}>
             <Zap className='mx-auto ' size={30} strokeWidth='3' />
             <div className='font-bold uppercase  '>Tim Nhanh</div>
           </Link> */}
-          {/* <Link className='flex flex-col border-x-2 px-5 gap-y-3 cursor-pointer' to="/opac" onClick={() => dispatch(changeTab(1))} >
+            {/* <Link className='flex flex-col border-x-2 px-5 gap-y-3 cursor-pointer' to="/opac" onClick={() => dispatch(changeTab(1))} >
             <Search className='mx-auto ' size={30} strokeWidth='3' />
             <div className='font-bold uppercase  '>Co ban</div>
           </Link>
@@ -77,29 +78,31 @@ const Home = () => {
             <PlusCircle className='mx-auto ' size={30} strokeWidth='3' />
             <div className='font-bold uppercase  '>Nang cao</div>
           </Link> */}
-        </div>
-        <div className='flex rounded-xl py-8 opacity-75 text-black gap-x-1 bg-white px-8 my-20'>
-          <select onChange={hanldeSelect} name="" id="" className='border-[1px] border-black rounded-md'>
-            <option value='title'>Nhan đề</option>
-            <option value='author'>Tác giả</option>
-            <option value='tag'>Từ khóa</option>
-            <option value='isbn'>Số ISBN</option>
-            <option value='cspl'>Chỉ số phân loại</option>
-            <option value='year'>Năm xuất bản</option>
-          </select>
-          <input onChange={(e) => setValue(e.target.value)} type="text" className='flex-1 border-[1px] border-black rounded-md' />
-          <button onClick={seacrhQuery} type='submit' className='px-3 rounded-lg flex items-center gap-x-3 bg-blue-500 py-1 hover:bg-lime-300'>
-            <Search size={19} />
-            <div className=' ' >
-              Tìm kiếm
+          </div>
+          <div className='flex rounded-xl py-8 opacity-75 text-black gap-x-1 bg-white px-8 my-20'>
+            <select onChange={hanldeSelect} name="" id="" className='border-[1px] border-black rounded-md'>
+              <option value='title'>Nhan đề</option>
+              <option value='author'>Tác giả</option>
+              <option value='tag'>Từ khóa</option>
+              <option value='isbn'>Số ISBN</option>
+              <option value='cspl'>Chỉ số phân loại</option>
+              <option value='year'>Năm xuất bản</option>
+            </select>
+            <input onChange={(e) => setValue(e.target.value)} type="text" className='flex-1 border-[1px] border-black rounded-md' />
+            <button onClick={seacrhQuery} type='submit' className='px-3 rounded-lg flex items-center gap-x-3 bg-blue-500 py-1 hover:bg-lime-300'>
+              <Search size={19} />
+              <div className=' ' >
+                Tìm kiếm
+              </div>
+            </button>
+            <div>
             </div>
-          </button>
-          <div>
           </div>
         </div>
       </div>
       {books && books.map(book => <Card key={book.id} book={book} />)}
     </div>
+
   )
 }
 

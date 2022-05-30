@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Header from '../components/layout/Header'
 import { authSelector, getUserInfo, updateUserInfo, userSelector } from '../redux/slice/auth'
-import { setUserName, setDOB, setFirstName, setLastName, setEmail } from '../redux/slice/auth'
+import { setUserName, setDOB, setFirstName, setLastName, setEmail, setPassword } from '../redux/slice/auth'
 import { borrowing } from '../services/auth.service'
 
 const UserInformation = () => {
@@ -11,13 +11,23 @@ const UserInformation = () => {
     const dispatch = useDispatch()
     const userInfo = useSelector(authSelector)
     const user = useSelector(userSelector)
+    // const [submit, setSubmit] = useState(false)
+    // const [confirmPassword, setConfirmPassword] = useState('')
 
     useEffect(() => {
+        // if (userInfo.password && confirmPassword && userInfo.password === confirmPassword) {
+        //     setSubmit(true);
+        //     return
+        // }
         dispatch(getUserInfo())
     }, [dispatch, user.token])
     const handleUpdate = (e) => {
         e.preventDefault()
         dispatch(updateUserInfo({ id: user.id, username: userInfo.userName, email: userInfo.email, password: userInfo.password, roles: ["User"], firstName: userInfo.firstName, lastName: userInfo.lastName, dateOfBirth: userInfo.dateOfBirth }))
+        // setErrMessage('')
+        // if (!submit) {
+        //     return null;
+        // }
     }
 
     return (
@@ -65,8 +75,14 @@ const UserInformation = () => {
                             <div className="flex justify-between">
                                 <label className="block text-gray-700 text-sm font-bold mb-1">Password</label>
                             </div>
-                            <input name='password' value={userInfo.password} type="text" hidden onChange={(e) => dispatch(setDOB(e.target.value))} className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
+                            <input name='password' type="password" value={userInfo.password} onChange={(e) => dispatch(setPassword(e.target.value))} className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
                         </div>
+                        {/* <div className="mt-4 ">
+                            <div className="flex justify-between">
+                                <label className="block text-gray-700 text-sm font-bold mb-2">Confirm Password</label>
+                            </div>
+                            <input name='password' value={confirmPassword} type="password" onChange={e => { setConfirmPassword(e.target.value) }} className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" />
+                        </div> */}
 
                         <div className='text-red-500 text-sm text-center pt-4'>
                             {/* {errMessage} */}
