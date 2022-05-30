@@ -36,9 +36,10 @@ const bookSlice = createSlice({
       // Add user to the state array
       state.book = action.payload;
     });
-    // builder.addCase(deleteReservationBook.fulfilled, (state, action) => {
-    //   state.book = action.payload;
-    // });
+    builder.addCase(deleteReservationBook.fulfilled, (state, action) => {
+      const bookId = action.payload;
+      state.book = state.book.filter((book) => book.id !== bookId);
+    });
   },
 });
 const bookReducer = bookSlice.reducer;
