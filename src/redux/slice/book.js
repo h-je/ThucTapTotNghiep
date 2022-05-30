@@ -25,25 +25,20 @@ const bookSlice = createSlice({
   name: "users",
   initialState: {
     book: null,
-    // delete: "",
   },
   reducers: {
-    // standard reducer logic, with auto-generated action types per reducer
+    cancelReservation(state, action) {
+      state.book = state.book.content.filter((book) => book.id !== action.payload);
+    },
   },
   extraReducers: (builder) => {
-    // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(fetchReservationBook.fulfilled, (state, action) => {
-      // Add user to the state array
       state.book = action.payload;
-    });
-    builder.addCase(deleteReservationBook.fulfilled, (state, action) => {
-      const bookId = action.payload;
-      state.book = state.book.filter((book) => book.id !== bookId);
     });
   },
 });
 const bookReducer = bookSlice.reducer;
 export const bookSelector = (state) => state.bookReducer.book;
 export const isLoggedInSelector = (state) => state.bookReducer.isLoggedIn;
-
+export const { cancelReservation } = bookSlice.actions;
 export default bookReducer;

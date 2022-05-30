@@ -23,18 +23,14 @@ const borrowSlice = createSlice({
     borrowing: null,
   },
   reducers: {
-    // standard reducer logic, with auto-generated action types per reducer
+ 
   },
   extraReducers: (builder) => {
-    // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(fetchBorrorwingOfUser.fulfilled, (state, action) => {
-      // Add user to the state array
-      console.log(action.payload);
       state.borrowing = action.payload;
     });
 
     builder.addCase(fetchBorrorwedOfUser.fulfilled, (state, action) => {
-      console.log(action.payload);
       state.borrowed = action.payload;
     });
   },
@@ -42,7 +38,6 @@ const borrowSlice = createSlice({
 const borrowReducer = borrowSlice.reducer;
 export const borrowingSelector = (state) => state.borrowReducer.borrowing;
 export const borrowedSelector = (state) => state.borrowReducer.borrowed;
-
 export const isLoggedInSelector = (state) => state.borrowReducer.isLoggedIn;
 
 export default borrowReducer;

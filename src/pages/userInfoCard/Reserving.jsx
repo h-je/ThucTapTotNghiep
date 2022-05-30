@@ -1,15 +1,15 @@
 import React from 'react'
 import { useState } from 'react'
-
+import { useDispatch } from 'react-redux'
+import { cancelReservation, deleteReservationBook } from '../../redux/slice/book'
 
 const Reserving = ({ books, onDeleteById }) => {
     const [show, setShow] = useState(true)
-
+    const dispatch = useDispatch()
     const handleDeleteById = (id) => {
-        // console.log("id nef", id);
-        onDeleteById(id)
+        dispatch(cancelReservation(id))
+        dispatch(deleteReservationBook(id))
     }
-    console.log(books);
     return (
 
         <div>
