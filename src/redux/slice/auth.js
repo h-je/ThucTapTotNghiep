@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { Book } from "react-feather";
 const API_URL = process.env.REACT_APP_API_URL;
 
 const user = JSON.parse(localStorage.getItem("user"));
@@ -11,17 +12,24 @@ export const getUserInfo = createAsyncThunk("user/getUserInfo", async () => {
   });
   return response.data;
 });
-export const isFavoriteBook = createAsyncThunk(
-  "user/isFavoriteBook",
-  async () => {
-    const response = await axios.get(API_URL + "/users/likebook", {
-      headers: {
-        Authorization: "Bearer " + user.token,
-      },
-    });
-    return response.data;
-  }
-);
+// export const isFavoriteBook = createAsyncThunk(
+//   "users/isFavoriteBook",
+//   async (isbn) => {
+//     console.log(isFavoriteBook);
+//     const response = await axios.put(
+//       API_URL + "/users/likebook",
+//       {
+//         headers: {
+//           Authorization: "Bearer " + user.token,
+//         },
+//       },
+//       {
+//         param: book.isbn,
+//       }
+//     );
+//     return response.data;
+//   }
+// );
 
 export const updateUserInfo = createAsyncThunk(
   "user/updateUserInfo",
@@ -110,9 +118,9 @@ const authSlice = createSlice({
       state.dateOfBirth = action.payload.dateOfBirth;
       state.password = action.payload.password;
     });
-    builder.addCase(isFavoriteBook.fulfilled, (state, action) => {
-      state.borrowed = action.payload;
-    });
+    // builder.addCase(isFavoriteBook.fulfilled, (state, action) => {
+    //   state.isFavoritebook = action.payload;
+    // });
   },
 });
 

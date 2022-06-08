@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { ArrowRight, Eye, Heart, Activity } from 'react-feather'
 import { useDispatch, useSelector } from 'react-redux'
-import { createReservation } from '../services/reservation.server'
+import { createReservation, likeBook } from '../services/reservation.server'
 import { userSelector } from '../../src/redux/slice/auth'
 
 const Card = ({ book, index }) => {
@@ -16,6 +16,14 @@ const Card = ({ book, index }) => {
 
         }).catch((error) => {
             alert(error.response.data)
+            console.log({ error });
+        })
+    }
+    const likesBook = () => {
+        likeBook({ isbn: book.isbn }).then(() => {
+            alert('đã thêm sách thành công')
+        }).catch((error) => {
+            alert(error.respone.data)
             console.log({ error });
         })
     }
@@ -125,8 +133,8 @@ const Card = ({ book, index }) => {
                             <div onClick={reservation} className='px-2 py-1 cursor-pointer  flex justify-center border-2 bg-blue-600 rounded-lg font-serif '>
                                 <Activity />Đăng ký mượn
                             </div>
-                            <Heart className='cursor-pointer mt-1' fill={like ? "red" : "white"} color='red' onClick={() => setLike(!like)} />
-
+                            <Heart className='cursor-pointer mt-1' fill={book.like ? "red" : "white"} color='red' onClick={likesBook} />
+                            {/*  logic like cùng với fill màu nền? */}
                         </div>)
                     }
                 </div>
@@ -197,7 +205,7 @@ const Card = ({ book, index }) => {
     return (
         <div className='border-[1px] border-gray-400 px-4 py-2 rounded-md bg-gray-200 mb-2 mx-40'>
             <div className='title font-semibold'>
-                <span>{index + 1}{book.title}</span>
+                <span>{book.title}</span>
             </div>
             <hr />
             <div className='flex flex-col mt-3'>

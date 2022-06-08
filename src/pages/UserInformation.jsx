@@ -4,10 +4,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import Header from '../components/layout/Header'
 import { authSelector, getUserInfo, updateUserInfo, userSelector } from '../redux/slice/auth'
 import { setUserName, setDOB, setFirstName, setLastName, setEmail, setPassword } from '../redux/slice/auth'
-import { borrowing } from '../services/auth.service'
+
+import Card from '../components/Card'
 
 const UserInformation = () => {
-    const [errMessage, setErrMessage] = useState('')
+    // const [errMessage, setErrMessage] = useState('')
     const dispatch = useDispatch()
     const userInfo = useSelector(authSelector)
     const user = useSelector(userSelector)
@@ -96,6 +97,7 @@ const UserInformation = () => {
                     </form>
                 </div>
             </div>
+
         </div>
     )
 }

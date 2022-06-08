@@ -19,6 +19,7 @@ const Home = () => {
       .then((data) => {
         setBooks(data.data.content)
         console.log(data.data.content);
+        console.log(books)
       })
   }, [])
   const hanldeSelect = (e) => {
@@ -42,9 +43,10 @@ const Home = () => {
   // }
   return (
     <div>
-      <div className="bg-[url('assets/background.jpg')]  bg-cover  bg-center h-5/6">
+      <div className="bg-[url('assets/background.jpg')]  bg-cover  bg-center min-h-screen">
         <div className='container text-white'>
           <Header />
+
           {/* <div className='flex items-center pt-5'>
           <div className='flex items-center gap-x-5 '>
             <div>
@@ -65,6 +67,7 @@ const Home = () => {
               </Link>
           }
         </div> */}
+
           <div className='flex gap-x-12 mt-12 '>
             {/* <Link className='flex flex-col gap-y-3 cursor-pointer ' to="/" onClick={() => dispatch(changeTab(0))}>
             <Zap className='mx-auto ' size={30} strokeWidth='3' />

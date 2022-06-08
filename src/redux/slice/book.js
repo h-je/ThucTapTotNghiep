@@ -28,7 +28,9 @@ const bookSlice = createSlice({
   },
   reducers: {
     cancelReservation(state, action) {
-      state.book = state.book.content.filter((book) => book.id !== action.payload);
+      state.book = state.book.content.filter(
+        (book) => book.id !== action.payload
+      );
     },
   },
   extraReducers: (builder) => {
