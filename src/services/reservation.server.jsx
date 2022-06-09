@@ -19,7 +19,7 @@ export const borrowingOfUser = async (id) => {
 
 export const getAll = async () => {
   const user = JSON.parse(localStorage.getItem('user'));
-  console.log(user.token)
+
   return await axios.get(API_URL + "/books/book?offset=0&pageSize=10000", {
     headers: {
       'Authorization': `Bearer ${user.token}`
@@ -38,9 +38,12 @@ export const getLikedBooks = async () => {
 export const likeBook = async (isbn) => {
   const user = JSON.parse(localStorage.getItem('user'));
   console.log(user.token)
-  return await axios.get(API_URL + "/users/likedbook", + isbn, {
-    headers: {
-      'Authorization': `Bearer ${user.token}`
-    }
-  })
+  return await axios.put(API_URL + "/users/likebook", + isbn
+  )
 }
+    // , {
+    //   headers: {
+    //     'Authorization': `Bearer ${user.token}`
+    //   }
+    // }
+

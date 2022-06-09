@@ -19,7 +19,7 @@ const Home = () => {
       .then((data) => {
         setBooks(data.data.content)
         console.log(data.data.content);
-        console.log(books)
+
       })
   }, [])
   const hanldeSelect = (e) => {

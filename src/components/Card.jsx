@@ -9,22 +9,23 @@ const Card = ({ book, index }) => {
     const user = useSelector(userSelector)
     const [isDetail, setDetail] = useState(false)
     const [like, setLike] = useState(false)
+    const [fill, setFill] = useState()
     const reservation = () => {
         console.log(user.id);
         createReservation({ userId: user.id, isbn: book.isbn }).then(() => {
-            alert('thành công')
 
+            alert('thành công')
         }).catch((error) => {
             alert(error.response.data)
             console.log({ error });
         })
     }
     const likesBook = () => {
-        likeBook({ isbn: book.isbn }).then(() => {
+        likeBook().then((response) => {
             alert('đã thêm sách thành công')
-        }).catch((error) => {
-            alert(error.respone.data)
-            console.log({ error });
+            console.log(JSON.stringify(response.data.content));
+
+        }).catch(() => {
         })
     }
     const renderTab = () => {
@@ -133,7 +134,7 @@ const Card = ({ book, index }) => {
                             <div onClick={reservation} className='px-2 py-1 cursor-pointer  flex justify-center border-2 bg-blue-600 rounded-lg font-serif '>
                                 <Activity />Đăng ký mượn
                             </div>
-                            <Heart className='cursor-pointer mt-1' fill={book.like ? "red" : "white"} color='red' onClick={likesBook} />
+                            <Heart className='cursor-pointer mt-1' color='red' onClick={likesBook} />
                             {/*  logic like cùng với fill màu nền? */}
                         </div>)
                     }

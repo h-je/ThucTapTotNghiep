@@ -9,7 +9,7 @@ const IsFavoriteBook = () => {
             console.log(JSON.stringify(response.data.content));
             console.log(likedBooks);
         })
-    }, [likedBooks])
+    }, [])
     const handleCancelLikedBook = (e) => {
         const isbn = e.target.getAttribute("isbn") //nhầm
         setLikedBooks(books.filter(book => book.isbn !== isbn));
