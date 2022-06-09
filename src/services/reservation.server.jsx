@@ -38,12 +38,16 @@ export const getLikedBooks = async () => {
 export const likeBook = async (isbn) => {
   const user = JSON.parse(localStorage.getItem('user'));
   console.log(user.token)
-  return await axios.put(API_URL + "/users/likebook", + isbn
+  return await axios.put(API_URL + "/users/likebook",
+    {
+      // ...data,
+      param: { isbn },
+      // isbn: String(data.isbn),
+    },
+    {
+      headers: {
+        'Authorization': `Bearer ${user.token}`
+      }
+    }
   )
 }
-    // , {
-    //   headers: {
-    //     'Authorization': `Bearer ${user.token}`
-    //   }
-    // }
-

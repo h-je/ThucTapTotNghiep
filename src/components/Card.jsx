@@ -21,11 +21,12 @@ const Card = ({ book, index }) => {
         })
     }
     const likesBook = () => {
-        likeBook().then((response) => {
+        likeBook({ isbn: book.isbn }).then((response) => {
             alert('đã thêm sách thành công')
             console.log(JSON.stringify(response.data.content));
 
         }).catch(() => {
+            console.log('fail');
         })
     }
     const renderTab = () => {

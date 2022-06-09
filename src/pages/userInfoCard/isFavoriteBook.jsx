@@ -11,8 +11,8 @@ const IsFavoriteBook = () => {
         })
     }, [])
     const handleCancelLikedBook = (e) => {
-        const isbn = e.target.getAttribute("isbn") //nhầm
-        setLikedBooks(books.filter(book => book.isbn !== isbn));
+        // const isbn = e.target.getAttribute("isbn") //nhầm
+        // setLikedBooks(books.filter(book => book.isbn !== isbn));
     }
     const books = likedBooks.map((book) => {
         return (
