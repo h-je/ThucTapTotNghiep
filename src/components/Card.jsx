@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
 import { ArrowRight, Eye, Heart, Activity } from 'react-feather'
 import { useDispatch, useSelector } from 'react-redux'
-import { createReservation, likeBook } from '../services/reservation.server'
+import { createReservation } from '../services/reservation.server'
 import { userSelector } from '../../src/redux/slice/auth'
+import { likeBook } from '../services/reservation.server'
 
 const Card = ({ book, index }) => {
     const [tab, setTab] = useState("overview")
     const user = useSelector(userSelector)
     const [isDetail, setDetail] = useState(false)
-    const [like, setLike] = useState(false)
-    const [fill, setFill] = useState()
+    // const [like, setLike] = useState(false)
+    // const [fill, setFill] = useState()
+    const dispatch = useDispatch()
     const reservation = () => {
         console.log(user.id);
         createReservation({ userId: user.id, isbn: book.isbn }).then(() => {
@@ -20,15 +22,22 @@ const Card = ({ book, index }) => {
             console.log({ error });
         })
     }
-    const likesBook = () => {
-        likeBook({ isbn: book.isbn }).then((response) => {
-            alert('đã thêm sách thành công')
-            console.log(JSON.stringify(response.data.content));
-
-        }).catch(() => {
-            console.log('fail');
+    const actionLikeBook = () => {
+        likeBook(book.isbn).then((response) => {
+            console.log(response)
+        }).catch((error) => {
+            console.log("that bai")
         })
     }
+    // const likesBook = () => {
+    //     likeBook({ isbn: book.isbn }).then((response) => {
+    //         alert('đã thêm sách thành công')
+    //         console.log(JSON.stringify(response.data.content));
+
+    //     }).catch(() => {
+    //         console.log('fail');
+    //     })
+    // }
     const renderTab = () => {
         if (tab === "overview") {
             return <div>
@@ -135,7 +144,7 @@ const Card = ({ book, index }) => {
                             <div onClick={reservation} className='px-2 py-1 cursor-pointer  flex justify-center border-2 bg-blue-600 rounded-lg font-serif '>
                                 <Activity />Đăng ký mượn
                             </div>
-                            <Heart className='cursor-pointer mt-1' color='red' onClick={likesBook} />
+                            <Heart className='cursor-pointer mt-1' color='red' onClick={actionLikeBook} />
                             {/*  logic like cùng với fill màu nền? */}
                         </div>)
                     }
