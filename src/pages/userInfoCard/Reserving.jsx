@@ -52,11 +52,11 @@ const Reserving = ({ books, onDeleteById }) => {
                                 {book.title}
                             </th>
                             <td class="px-6 py-4">
-                                <input type="date" value={book.borrowDate} />
+                                <div  >{book.borrowDate}</div>
 
                             </td>
                             <td class="px-6 py-4">
-                                <input type="date" value={book.expirationDate} />
+                                <div  >{book.expirationDate}</div>
                             </td>
                             <td class="px-6 py-4 items-center">
                                 {book.status}

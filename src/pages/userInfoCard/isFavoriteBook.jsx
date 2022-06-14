@@ -10,6 +10,17 @@ const IsFavoriteBook = () => {
             console.log(likedBooks);
         })
     }, [])
+    const markLikeBook = isbn => {
+        const newBooks = likedBooks.map(book => {
+            if (book.isbn === isbn) book.liked = !book.liked
+            return book
+        })
+        setLikedBooks(newBooks)
+    }
+    const deleteLikeBook = isbn => {
+        const newBooks = likedBooks.filter(todo => todo.isbn !== isbn)
+        setLikedBooks(newBooks)
+    }
     const handleCancelLikedBook = (e) => {
         // const isbn = e.target.getAttribute("isbn") //nhầm
         // setLikedBooks(books.filter(book => book.isbn !== isbn));
@@ -22,7 +33,7 @@ const IsFavoriteBook = () => {
                 <td class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">{book.title}</td>
                 <td class="px-6 font-medium text-gray-900 dark:text-white whitespace-nowrap items-center text-center max-w-xs m-auto ">Sách cung cấp những thông tin khoa học nghệ thuật</td>
                 <td>
-                    <div onClick={() => handleCancelLikedBook(book.isbn)} class="font-medium ml-2 text-blue-600 cursor-pointer dark:text-blue-500 hover:underline">Bỏ thích</div>
+                    <div onClick={deleteLikeBook.bind(this, book.isbn)} class="font-medium ml-2 text-blue-600 cursor-pointer dark:text-blue-500 hover:underline">Bỏ thích</div>
                 </td>
                 <td>
                     <div onClick={() => handleCancelLikedBook(book.isbn)} class="font-medium ml-6 text-blue-600 cursor-pointer dark:text-blue-500 hover:underline">Đăng ký mượn</div>
