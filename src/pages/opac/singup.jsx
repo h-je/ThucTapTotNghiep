@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { register } from '../../services/auth.service'
+import { toast } from 'react-toastify'
 
 const Singup = () => {
     const [firstName, setFirstName] = useState('')
@@ -28,10 +29,11 @@ const Singup = () => {
         }
         register({ firstName, lastName, username, email, password, dateOfBirth, siteUrl: "http://localhost:3000/verify" })
             .then((data) =>
-                setSuccessMessage("Success!")
+                setSuccessMessage("Success!"),
+                toast(setSuccessMessage)
             )
             .catch((error) => {
-                console.log(error);
+                toast(error);
                 setErrMessage(error.response.data.message)
             })
     }
@@ -94,6 +96,7 @@ const Singup = () => {
                             </div>
 
                             <div className='text-red-500 text-sm text-center pt-4'>{errMessage}</div>
+
                             <div className='text-red-500 text-sm text-center pt-4'>{successMessage}</div>
                             <div className="">
                                 <button type='submit' className="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded-md hover:bg-gray-600">Sign Up</button>

@@ -4,6 +4,8 @@ import { borrowedSelector } from '../../redux/slice/borrow'
 const BorrowedOfUser = ({ books }) => {
     const borrowed = useSelector(borrowedSelector)
     const [show, setShow] = useState(true)
+    console.log(borrowed);
+    console.log("adsjbadnj");
     return (
         <div>
             <div onClick={() => setShow(!show)} className='cursor-pointer font-semibold text-xl'>

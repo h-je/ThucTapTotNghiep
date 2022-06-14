@@ -10,6 +10,7 @@ const Reserving = ({ books, onDeleteById }) => {
         dispatch(cancelReservation(id))
         dispatch(deleteReservationBook(id))
     }
+    console.log(books);
     return (
 
         <div>
@@ -49,7 +50,7 @@ const Reserving = ({ books, onDeleteById }) => {
                                 {book.id}
                             </td>
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                                {book.title}
+                                {book.book}
                             </th>
                             <td class="px-6 py-4">
                                 <div  >{book.borrowDate}</div>
@@ -66,6 +67,7 @@ const Reserving = ({ books, onDeleteById }) => {
                             </td>
                         </tr>))}
                     {books?.content?.length === 0 && <td>No data yet</td>}
+
                 </tbody>
             </table>
         </div >

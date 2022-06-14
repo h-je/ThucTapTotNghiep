@@ -12,6 +12,9 @@ import ResetPassword from "./pages/opac/ResetPassword";
 import { ModalEdit } from "./pages/modalEditShow/modalEdit";
 import UserInformation from "./pages/UserInformation";
 import isFavoriteBook from "./pages/userInfoCard/isFavoriteBook";
+import NotFound404 from "./pages/errors/NotFound404";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // import { useEffect } from "react";
 // import bookApi from "./api/bookApi";
@@ -32,7 +35,9 @@ function App() {
         <Route path="/modaldelete" component={ModalEdit} />
         <Route path="/userinformation" component={UserInformation} />
         <Route path="/isfavoritebook" component={isFavoriteBook} />
+        <Route path="*" component={NotFound404} />
       </Switch>
+      <ToastContainer />
       <Footer />
     </div>
   );

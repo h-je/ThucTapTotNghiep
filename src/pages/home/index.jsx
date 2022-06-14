@@ -103,7 +103,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {books && books.map(book => <Card key={book.id} book={book} />)}
+      {books && books.map((book, index) => <Card key={book.id} index={index} book={book} />)}
     </div>
 
   )

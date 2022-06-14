@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { ArrowRight, Eye, Heart, Activity } from 'react-feather'
-import { useDispatch, useSelector } from 'react-redux'
+import { ArrowRight, Heart, Activity } from 'react-feather'
+import { useSelector } from 'react-redux'
 import { createReservation } from '../services/reservation.server'
 import { userSelector } from '../../src/redux/slice/auth'
 import { likeBook } from '../services/reservation.server'
+import { toast } from 'react-toastify'
 
 const Card = ({ book, index }) => {
     const [tab, setTab] = useState("overview")
@@ -11,7 +12,6 @@ const Card = ({ book, index }) => {
     const [isDetail, setDetail] = useState(false)
     // const [like, setLike] = useState(false)
     // const [fill, setFill] = useState()
-    const dispatch = useDispatch()
     const reservation = () => {
         console.log(user.id);
         createReservation({ userId: user.id, isbn: book.isbn }).then(() => {
@@ -24,7 +24,7 @@ const Card = ({ book, index }) => {
     }
     const actionLikeBook = () => {
         likeBook(book.isbn).then((response) => {
-            console.log(response)
+            toast(response.data)
         }).catch((error) => {
             console.log("that bai")
         })
@@ -44,80 +44,80 @@ const Card = ({ book, index }) => {
                 {isDetail ?
                     <div className='flex'>
                         <div className='flex  text-sm gap-x-7'>
-                            <div>
+                            <div className='flex-shrink-0'>
                                 <img width={100} height={140} src={`${process.env.REACT_APP_API_URL}/books/image/${book.isbn}`} alt="" />
                             </div>
                             <div className='flex flex-col gap-y-5 gap-x-2  '>
-                                <div className='flex gap-x-5'>
+                                <div className='grid grid-cols-6  gap-x-5'>
                                     <div className='w-24'>
                                         Tiêu đề
                                     </div>
-                                    <div>
+                                    <div className='col-span-5'>
                                         {book.title}
                                     </div>
                                 </div>
-                                <div className='flex gap-x-5'>
+                                <div className='grid grid-cols-6  gap-x-5'>
                                     <div className='w-24'>
                                         Tác giả
                                     </div>
-                                    <div>
+                                    <div className='col-span-5'>
                                         {book.authors}
                                     </div>
                                 </div>
-                                <div className='flex gap-x-5'>
+                                <div className='grid grid-cols-6  gap-x-5'>
                                     <div className='w-24'>
                                         Dạng tài liệu
                                     </div>
-                                    <div>
+                                    <div className='col-span-5'>
                                         {book.category}
                                     </div>
                                 </div>
-                                <div className='flex gap-x-5'>
+                                <div className='grid grid-cols-6 gap-x-5'>
                                     <div className='w-24'>
                                         Mô tả
                                     </div>
-                                    <div>
+                                    <div className='col-span-5'>
                                         {book.content}
                                     </div>
                                 </div>
-                                <div className='flex gap-x-5'>
+                                <div className='grid grid-cols-6  gap-x-5'>
                                     <div className='w-24'>
                                         Isbn
                                     </div>
-                                    <div>
+                                    <div className='col-span-5'>
                                         {book.isbn}
                                     </div>
                                 </div>
-                                <div className='flex gap-x-5'>
+                                <div className='grid grid-cols-6  gap-x-5'>
                                     <div className='w-24'>
                                         Giá
                                     </div>
-                                    <div>
+                                    <div className='col-span-5'>
                                         {book.price}
                                     </div>
                                 </div>
-                                <div className='flex gap-x-5'>
+                                <div className='grid grid-cols-6  gap-x-5'>
                                     <div className='w-24'>
                                         Nhà xuất bản
                                     </div>
-                                    <div>
+                                    <div className='col-span-5'>
                                         {book.publisher}
                                     </div>
                                 </div>
-                                <div className='flex gap-x-5'>
+                                <div className='grid grid-cols-6  gap-x-5'>
                                     <div className='w-24'>
                                         Có sẵn
                                     </div>
-                                    <div>
+                                    <div className='col-span-5'>
                                         {book.ready}
                                     </div>
                                 </div>
-                                <div className='flex gap-x-5'>
+                                <div className='grid grid-cols-6  gap-x-5'>
                                     <div className='w-24'>
                                         Tags
                                     </div>
-                                    <div>
-                                        {book.Tags}
+                                    <div className='col-span-5'>
+                                        {book.tags?.join(", ")}
                                     </div>
                                 </div>
 
@@ -216,6 +216,7 @@ const Card = ({ book, index }) => {
     return (
         <div className='border-[1px] border-gray-400 px-4 py-2 rounded-md bg-gray-200 mb-2 mx-40'>
             <div className='title font-semibold'>
+                <span className='mr-1'>{index + 1}.</span>
                 <span>{book.title}</span>
             </div>
             <hr />

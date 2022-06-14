@@ -37,12 +37,12 @@ const UserBookOrder = () => {
                     <Reserving books={book || []} onDeleteById={(value) => handleDeleteReservation(value)} />
                 </div>
                 <div class="m-10 relative overflow-x-auto shadow-md  sm:rounded-lg">
-                    <BorrowingOfUser />
+                    <BorrowingOfUser  />
                 </div>
                 {/* nếu không nhận dc books được thì mặc định sẽ là [] */}
                 {/* !books -> [] */}
                 <div class="m-10 relative overflow-x-auto shadow-md  sm:rounded-lg">
-                    <BorrowedOfUser />
+                    <BorrowedOfUser  />
                 </div>
             </div>
         </div>
