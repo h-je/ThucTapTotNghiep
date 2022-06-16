@@ -29,7 +29,7 @@ const Home = () => {
   const seacrhQuery = () => {
     search({ [select]: value })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setBooks(data.data.content)
       })
       .catch((data) => {

@@ -10,24 +10,29 @@ const Card = ({ book, index }) => {
     const [tab, setTab] = useState("overview")
     const user = useSelector(userSelector)
     const [isDetail, setDetail] = useState(false)
-    // const [like, setLike] = useState(false)
-    // const [fill, setFill] = useState()
+    const [like, setLike] = useState(false)
+    const [fill, setFill] = useState()
     const reservation = () => {
         console.log(user.id);
         createReservation({ userId: user.id, isbn: book.isbn }).then(() => {
 
             alert('thành công')
         }).catch((error) => {
-            alert(error.response.data)
+            toast(error.response.data)
             console.log({ error });
         })
     }
     const actionLikeBook = () => {
         likeBook(book.isbn).then((response) => {
             toast(response.data)
-        }).catch((error) => {
-            console.log("that bai")
+
         })
+            .then(() => {
+                setLike(true)
+            })
+            .catch((error) => {
+                console.log("that bai")
+            })
     }
     // const likesBook = () => {
     //     likeBook({ isbn: book.isbn }).then((response) => {
@@ -144,56 +149,56 @@ const Card = ({ book, index }) => {
                             <div onClick={reservation} className='px-2 py-1 cursor-pointer  flex justify-center border-2 bg-blue-600 rounded-lg font-serif '>
                                 <Activity />Đăng ký mượn
                             </div>
-                            <Heart className='cursor-pointer mt-1' color='red' onClick={actionLikeBook} />
+                            <Heart className='cursor-pointer mt-1' color='red' fill={like && 'red'} onClick={actionLikeBook} />
                             {/*  logic like cùng với fill màu nền? */}
                         </div>)
                     }
                 </div>
             </div>
         }
-        if (tab === "location") {
-            return (
-                <table className='table-auto'>
-                    <thead>
-                        <th>TT</th>
-                        <th>Điểm lưu thông</th>
-                        <th>Mã ĐKCB</th>
-                        <th>Trạng thái</th>
-                        <th>Thao tác</th>
-                    </thead>
+        // if (tab === "location") {
+        //     return (
+        //         <table className='table-auto'>
+        //             <thead>
+        //                 <th>TT</th>
+        //                 <th>Điểm lưu thông</th>
+        //                 <th>Mã ĐKCB</th>
+        //                 <th>Trạng thái</th>
+        //                 <th>Thao tác</th>
+        //             </thead>
 
-                    <tbody >
-                        <tr className='text-center  border-t border-gray-400'>
-                            <td>1</td>
-                            <td>Kho Lưu chiểu</td>
-                            <td>510549</td>
-                            <td>Trong kho chưa sẵn sàng</td>
-                            <td>
-                                <button>Đk mượn</button>
-                            </td>
-                        </tr>
-                        <tr className='text-center  border-t border-gray-400'>
-                            <td>1</td>
-                            <td>Kho Lưu chiểu</td>
-                            <td>510549</td>
-                            <td>Trong kho chưa sẵn sàng</td>
-                            <td>
-                                <button>Đk mượn</button>
-                            </td>
-                        </tr>
-                        <tr className='text-center  border-t border-gray-400'>
-                            <td>1</td>
-                            <td>Kho Lưu chiểu</td>
-                            <td>510549</td>
-                            <td>Trong kho chưa sẵn sàng</td>
-                            <td>
-                                <button>Đk mượn</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            )
-        }
+        //             <tbody >
+        //                 <tr className='text-center  border-t border-gray-400'>
+        //                     <td>1</td>
+        //                     <td>Kho Lưu chiểu</td>
+        //                     <td>510549</td>
+        //                     <td>Trong kho chưa sẵn sàng</td>
+        //                     <td>
+        //                         <button>Đk mượn</button>
+        //                     </td>
+        //                 </tr>
+        //                 <tr className='text-center  border-t border-gray-400'>
+        //                     <td>1</td>
+        //                     <td>Kho Lưu chiểu</td>
+        //                     <td>510549</td>
+        //                     <td>Trong kho chưa sẵn sàng</td>
+        //                     <td>
+        //                         <button>Đk mượn</button>
+        //                     </td>
+        //                 </tr>
+        //                 <tr className='text-center  border-t border-gray-400'>
+        //                     <td>1</td>
+        //                     <td>Kho Lưu chiểu</td>
+        //                     <td>510549</td>
+        //                     <td>Trong kho chưa sẵn sàng</td>
+        //                     <td>
+        //                         <button>Đk mượn</button>
+        //                     </td>
+        //                 </tr>
+        //             </tbody>
+        //         </table>
+        //     )
+        // }
         if (tab === "link") {
             return (
                 <table>

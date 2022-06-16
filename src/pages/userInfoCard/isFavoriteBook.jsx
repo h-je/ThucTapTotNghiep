@@ -45,9 +45,9 @@ const IsFavoriteBook = () => {
                 <td><img width={100} height={140} src={`${process.env.REACT_APP_API_URL}/books/image/${book.isbn}`} alt="" /></td>
                 <td className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">{book.title}</td>
                 <td className="px-6 font-medium text-gray-900 dark:text-white  items-center  max-w-xs m-auto ">{book.content}</td>
-                <td>
+                {/* <td>
                     <div onClick={deleteLikeBook.bind(this, book.isbn)} class="font-medium ml-2 text-blue-600 cursor-pointer dark:text-blue-500 hover:underline">Bỏ thích</div>
-                </td>
+                </td> */}
                 <td>
                     <div onClick={() => reservation(book)} class="font-medium ml-6 text-blue-600 cursor-pointer dark:text-blue-500 hover:underline">Đăng ký mượn</div>
                 </td>
@@ -67,8 +67,7 @@ const IsFavoriteBook = () => {
                             <th scope="col" class="px-6 py-3">Ảnh</th>
                             <th scope="col" class="px-6 py-3">Tiêu đề</th>
                             <th scope="col" class="px-6 py-3">Nội dung</th>
-                            <th scope="col" class="px-6 py-3">Xóa
-                            </th>
+                            {/* <th scope="col" class="px-6 py-3">Xóa</th> */}
                             <th scope="col" class="px-6 py-3">
                                 Đăng ký mượn
                             </th>
