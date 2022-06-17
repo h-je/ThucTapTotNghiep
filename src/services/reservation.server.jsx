@@ -1,3 +1,4 @@
+/* eslint-disable no-const-assign */
 import { data } from "autoprefixer";
 import axios from "axios";
 const API_URL = process.env.REACT_APP_API_URL;
@@ -39,12 +40,20 @@ export const updateUser = async (user) => {
 
 export const getAll = async () => {
   const user = JSON.parse(localStorage.getItem("user"));
-
-  return await axios.get(API_URL + "/books/book?offset=0&pageSize=10000", {
-    headers: {
-      Authorization: `Bearer ${user.token}`,
-    },
-  });
+  const token = "";
+  if (user != null) {
+    token = user.token;
+  }
+  return await axios.get(
+    API_URL + "/books/book?offset=0&pageSize=10000",
+    user
+      ? {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      : null
+  );
 };
 export const getLikedBooks = async () => {
   const user = JSON.parse(localStorage.getItem("user"));
