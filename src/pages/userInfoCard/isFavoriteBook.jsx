@@ -1,43 +1,56 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { getLikedBooks } from '../../services/reservation.server';
 import Header from '../../components/layout/Header'
 import { createReservation } from '../../services/reservation.server'
 import { userSelector } from '../../../src/redux/slice/auth'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
+import { likeBook } from '../../services/reservation.server'
 
 
 const IsFavoriteBook = () => {
     const user = useSelector(userSelector)
     const [likedBooks, setLikedBooks] = useState([]);
-    useEffect(() => {
+    const [action, setAction] = useState(true);
+
+    const getCLLikedBooks = useCallback(() => {
         getLikedBooks().then((response) => {
             setLikedBooks(response.data.content);
+            setAction(false)
         })
-    }, [])
+    }, [action])
+
     const reservation = (book) => {
         createReservation({ userId: user.id, isbn: book.isbn }).then(() => {
-            alert('thành công')
+            toast('thành công')
         }).catch((error) => {
             toast(error.response.data)
             console.log({ error });
         })
     }
-    const makeLikeBook = isbn => {
-        const newBooks = likedBooks.map(book => {
-            if (book.isbn === isbn) book.liked = !book.liked
-            return book
-        })
-        setLikedBooks(newBooks)
+    const actionUnLikeBook = (book) => {
+        setAction(true)
+        likeBook(book.isbn)
+            .then((response) => {
+                // alert('đã thêm sách thành công')
+                toast(response.data);
+                getCLLikedBooks()
+
+            }).catch(() => {
+                toast('fail');
+            })
     }
-    const deleteLikeBook = isbn => {
-        const newBooks = likedBooks.filter(todo => todo.isbn !== isbn)
-        setLikedBooks(newBooks)
-    }
-    const handleCancelLikedBook = (e) => {
-        // const isbn = e.target.getAttribute("isbn") //nhầm
-        // setLikedBooks(books.filter(book => book.isbn !== isbn));
-    }
+    // const makeLikeBook = isbn => {
+    //     const newBooks = likedBooks.map(book => {
+    //         if (book.isbn === isbn) book.liked = !book.liked
+    //         return book
+    //     })
+    //     setLikedBooks(newBooks)
+    // }
+    // const deleteLikeBook = isbn => {
+    //     const newBooks = likedBooks.filter(todo => todo.isbn !== isbn)
+    //     setLikedBooks(newBooks)
+    // }
     const books = likedBooks.map((book) => {
         return (
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -49,11 +62,18 @@ const IsFavoriteBook = () => {
                     <div onClick={deleteLikeBook.bind(this, book.isbn)} class="font-medium ml-2 text-blue-600 cursor-pointer dark:text-blue-500 hover:underline">Bỏ thích</div>
                 </td> */}
                 <td>
+                    <div onClick={() => actionUnLikeBook(book)} class="font-medium ml-6 text-blue-600 cursor-pointer dark:text-blue-500 hover:underline">Bỏ thích</div>
+                </td>
+                <td>
                     <div onClick={() => reservation(book)} class="font-medium ml-6 text-blue-600 cursor-pointer dark:text-blue-500 hover:underline">Đăng ký mượn</div>
                 </td>
             </tr >
         )
     })
+
+    useEffect(() => {
+        getCLLikedBooks();
+    }, [])
     return (
         <div className=" min-h-screen ">
             <div className="bg-[url('assets/background.jpg')] flex shadow-lg shadow-zinc-700">
@@ -67,7 +87,7 @@ const IsFavoriteBook = () => {
                             <th scope="col" class="px-6 py-3">Ảnh</th>
                             <th scope="col" class="px-6 py-3">Tiêu đề</th>
                             <th scope="col" class="px-6 py-3">Nội dung</th>
-                            {/* <th scope="col" class="px-6 py-3">Xóa</th> */}
+                            <th scope="col" class="px-6 py-3">Xóa</th>
                             <th scope="col" class="px-6 py-3">
                                 Đăng ký mượn
                             </th>

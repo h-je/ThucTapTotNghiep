@@ -16,10 +16,10 @@ const UserBookOrder = () => {
     const handleDeleteReservation = (id) => {
 
         dispatch(deleteReservationBook(id))
-        console.log("xoas thawng co id", id);
+        // console.log("xoas thawng co id", id);
     }
     useEffect(() => {
-        console.log(user.id);
+        // console.log(user.id);
         dispatch(fetchReservationBook(user.id))
         dispatch(fetchBorrorwingOfUser(user.id))
         dispatch(fetchBorrorwedOfUser(user.id))
@@ -37,12 +37,12 @@ const UserBookOrder = () => {
                     <Reserving books={book || []} onDeleteById={(value) => handleDeleteReservation(value)} />
                 </div>
                 <div class="m-10 relative overflow-x-auto shadow-md  sm:rounded-lg">
-                    <BorrowingOfUser  />
+                    <BorrowingOfUser />
                 </div>
                 {/* nếu không nhận dc books được thì mặc định sẽ là [] */}
                 {/* !books -> [] */}
                 <div class="m-10 relative overflow-x-auto shadow-md  sm:rounded-lg">
-                    <BorrowedOfUser  />
+                    <BorrowedOfUser />
                 </div>
             </div>
         </div>

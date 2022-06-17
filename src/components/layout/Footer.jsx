@@ -12,10 +12,10 @@ const Footer = () => {
             THƯ VIỆN QUỐC GIA VIỆT NAM
           </div>
           <div className='font-normal text-md '>
-            Địa chỉ: Số 31 – Tràng Thi – Hoàn Kiếm - Hà Nội
+            Địa chỉ: TCH13-Phường-TCH-Quận 12
           </div>
           <div className='font-normal text-md '>
-            Điện thoại: 04-38255397 (tổng đài). E-mail: info@nlv.gov.vn
+            Điện thoại: 0338786540 (tổng đài). E-mail: dong.nguyentanngoc@gmail.com
           </div>
         </div>
       </div>

@@ -24,15 +24,12 @@ const Card = ({ book, index }) => {
     }
     const actionLikeBook = () => {
         likeBook(book.isbn).then((response) => {
-            toast(response.data)
+            // alert('đã thêm sách thành công')
+            toast(response.data);
 
+        }).catch(() => {
+            toast('fail');
         })
-            .then(() => {
-                setLike(true)
-            })
-            .catch((error) => {
-                console.log("that bai")
-            })
     }
     // const likesBook = () => {
     //     likeBook({ isbn: book.isbn }).then((response) => {
@@ -199,24 +196,24 @@ const Card = ({ book, index }) => {
         //         </table>
         //     )
         // }
-        if (tab === "link") {
-            return (
-                <table>
-                    <thead>
-                        <th>TT</th>
-                        <th>Thông tin tài liệu</th>
-                        <th>Loại</th>
-                    </thead>
-                    <tbody>
-                        <tr className='text-center border-t border-gray-400'>
-                            <td>1</td>
-                            <td>Toán học cao cấp/Nguyễn Đình Trí</td>
-                            <td>Sách bộ</td>
-                        </tr>
-                    </tbody>
-                </table>
-            )
-        }
+        // if (tab === "link") {
+        //     return (
+        //         <table>
+        //             <thead>
+        //                 <th>TT</th>
+        //                 <th>Thông tin tài liệu</th>
+        //                 <th>Loại</th>
+        //             </thead>
+        //             <tbody>
+        //                 <tr className='text-center border-t border-gray-400'>
+        //                     <td>1</td>
+        //                     <td>Toán học cao cấp/Nguyễn Đình Trí</td>
+        //                     <td>Sách bộ</td>
+        //                 </tr>
+        //             </tbody>
+        //         </table>
+        //     )
+        // }
     }
     return (
         <div className='border-[1px] border-gray-400 px-4 py-2 rounded-md bg-gray-200 mb-2 mx-40'>
@@ -230,12 +227,12 @@ const Card = ({ book, index }) => {
                     <div className='py-1 px-2 text-sm rounded-sm text-white bg-gray-500 cursor-pointer hover:text-gray-300' onClick={() => setTab("overview")}>
                         Tổng quan
                     </div>
-                    <div className='py-1 px-2 text-sm rounded-sm text-white bg-gray-500 cursor-pointer  hover:text-gray-300' onClick={() => setTab("location")}>
+                    {/* <div className='py-1 px-2 text-sm rounded-sm text-white bg-gray-500 cursor-pointer  hover:text-gray-300' onClick={() => setTab("location")}>
                         Vị trí tài liệu
                     </div>
                     <div className='py-1 px-2 text-sm rounded-sm text-white bg-gray-500 cursor-pointer  hover:text-gray-300' onClick={() => setTab("link")}>
                         Liên kết
-                    </div>
+                    </div> */}
                 </div>
                 {
                     renderTab()

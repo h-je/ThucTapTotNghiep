@@ -76,7 +76,7 @@ const BorrowingOfUser = ({ books }) => {
                                 {book.status}
                             </td>
                         </tr>))}
-                    {books?.content?.length === 0 && <td>Đéo có data đkm BE</td>}
+                    {books?.content?.length === 0 && <td></td>}
                 </tbody>
             </table>
         </div>
