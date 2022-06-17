@@ -19,17 +19,18 @@ export const verifyEmail = (code) => {
 
 const user = JSON.parse(localStorage.getItem("user"));
 export const search = (data) => {
-  console.log(user.token);
   return axios.get(
     process.env.REACT_APP_API_URL + "/books/search",
     {
       params: { ...data },
     },
-    {
-      Headers: {
-        Authorization: "Bearer " + user.token,
-      },
-    }
+    user
+      ? {
+          Headers: {
+            Authorization: "Bearer " + user.token,
+          },
+        }
+      : null
   );
 };
 export const forgotPassword = (data) => {
